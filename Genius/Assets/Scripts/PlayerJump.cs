@@ -6,16 +6,19 @@ public class PlayerJump : MonoBehaviour
 {
     [SerializeField] private float jumpForce = 1f;
     [SerializeField] private string GroundCheckName;
+    private CanWlak can;
     private Rigidbody2D rb;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        can = GetComponent<CanWlak>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Pular();
+        if(can.GetCan())
+            Pular();
     }
     bool IsGrounded()
     {
