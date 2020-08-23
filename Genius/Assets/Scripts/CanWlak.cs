@@ -25,4 +25,8 @@ public class CanWlak : MonoBehaviour
     {
         return can;
     }
+    public int GetPlayerN()
+    {
+        return playerN;
+    }
 }
