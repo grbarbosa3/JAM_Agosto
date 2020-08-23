@@ -14,7 +14,7 @@ public class PlayerWalk : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         can = GetComponent<CanWlak>();
     }
-    private void Update()
+    private void FixedUpdate()
     {
         float aux = Input.GetAxis(ipt);
         if (can.GetCan())

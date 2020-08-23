@@ -10,7 +10,7 @@ public class CanWlak : MonoBehaviour
     private bool can = false;
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if(gm.whoPLay == playerN)
         {

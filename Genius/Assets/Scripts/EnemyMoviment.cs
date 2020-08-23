@@ -38,16 +38,16 @@ public class EnemyMoviment : MonoBehaviour
         }
 
     }
-    void Update()
+    void FixedUpdate()
     {
-        if (gm.whoPLay == 0)
+        if (gm.whoPLay == 0 && IsGrounded())
         {
             if (aux < listCores.Count)
             {
                 Vector2 vel = new Vector2(posiCores[listCores[aux]].position.x - transform.position.x, 0);
                 if (IsGrounded())
-                    rb.velocity = vel.normalized * enemySpeed;
-                if (transform.position.x == posiCores[listCores[aux]].position.x)
+                    rb.velocity = new Vector2 (vel.normalized.x * enemySpeed,rb.velocity.y);
+                if (Mathf.Abs(posiCores[listCores[aux]].position.x - transform.position.x) <distMin)
                 {
                     Pular();
                     aux++;
@@ -57,15 +57,15 @@ public class EnemyMoviment : MonoBehaviour
             {
                 if (aux2!=aux)
                 {
-                    add = Random.Range(0, posiCores.Length);
+                    add = Random.Range(0,posiCores.Length);
                     aux2 = aux;
                 }
                 Vector2 vel = new Vector2(posiCores[add].position.x - transform.position.x, 0);
                 if (IsGrounded())
                 {
-                    rb.velocity = vel.normalized * enemySpeed;
+                    rb.velocity = new Vector2(vel.normalized.x * enemySpeed, rb.velocity.y);
                 }
-                if (Mathf.Abs(transform.position.x - posiCores[add].position.x)<distMin)
+                if (Mathf.Abs(posiCores[add].position.x-transform.position.x)<distMin)
                 {
                     if (caughtColor.GetColor() >= 0 && caughtColor.GetSprite() != null)
                         gm.AddCor(caughtColor.GetColor(), caughtColor.GetSprite());
@@ -74,12 +74,13 @@ public class EnemyMoviment : MonoBehaviour
                     coresAdd++;
                 }
             }
-            if (coresAdd == quantCoresAdd)
+            if (coresAdd == quantCoresAdd && IsGrounded())
             {
                 coresAdd = 0;
                 aux = 0;
                 gm.whoPLay = 1;
                 transform.position = posiInicial.position;
+                rb.velocity = Vector2.zero;
             }
         }
     }

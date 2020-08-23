@@ -8,9 +8,11 @@ public class PlayerSelectColor : MonoBehaviour
     [SerializeField] private Transform posiInicial;
     [SerializeField] private int quantCoresAdd = 1;
     [SerializeField] private int nextPlayer = 0;
+    [SerializeField] private GameObject scorePanel;
     private int score = 0;
     private DetectedColor caughtColor;
     private CanWlak can;
+    private PlayerJump jump;
     private List<int> listCores;
     private int aux = 0;
     private bool multiplayer;
@@ -24,13 +26,14 @@ public class PlayerSelectColor : MonoBehaviour
         multiplayer = gm.GetMultiplayer();
         caughtColor = GetComponent<DetectedColor>();
         can = GetComponent<CanWlak>();
+        jump = GetComponent<PlayerJump>();
         listCores = gm.listaDecor;
     }
-    private void Update()
+    private void FixedUpdate()
     {
         if (Input.GetButtonDown("Jump"))
         {
-            if (can.GetPlayerN() == gm.whoPLay)
+            if (can.GetPlayerN() == gm.whoPLay && jump.IsGrounded())
             {
                 cor = caughtColor.GetColor();
                 sprite = caughtColor.GetSprite();
@@ -65,6 +68,16 @@ public class PlayerSelectColor : MonoBehaviour
                         }
                     }
                 }
+            }
+        }
+        if (lose)
+        {
+            if (multiplayer)
+                Destroy(this.gameObject);
+            else
+            {
+                Time.timeScale = 0f;
+                scorePanel.SetActive(true);
             }
         }
     }

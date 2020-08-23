@@ -15,12 +15,12 @@ public class PlayerJump : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if(can.GetCan())
             Pular();
     }
-    bool IsGrounded()
+    public bool IsGrounded()
     {
         return transform.Find(GroundCheckName).GetComponent<GroundCheck>().isGrounded;
     }
@@ -28,7 +28,7 @@ public class PlayerJump : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
-            rb.velocity += Vector2.up * jumpForce;
+            rb.velocity = Vector2.up * jumpForce;
         }
 
     }
