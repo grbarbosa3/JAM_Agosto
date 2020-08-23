@@ -15,7 +15,7 @@ public class PlayerJump : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if(can.GetCan())
             Pular();

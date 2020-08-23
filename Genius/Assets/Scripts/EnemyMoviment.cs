@@ -74,14 +74,17 @@ public class EnemyMoviment : MonoBehaviour
                     coresAdd++;
                 }
             }
-            if (coresAdd == quantCoresAdd && IsGrounded())
-            {
-                coresAdd = 0;
-                aux = 0;
-                gm.whoPLay = 1;
-                transform.position = posiInicial.position;
-                rb.velocity = Vector2.zero;
-            }
+        }
+    }
+    private void Update()
+    {
+        if (coresAdd == quantCoresAdd && IsGrounded())
+        {
+            coresAdd = 0;
+            aux = 0;
+            gm.whoPLay = 1;
+            transform.position = posiInicial.position;
+            rb.velocity = Vector2.zero;
         }
     }
 }

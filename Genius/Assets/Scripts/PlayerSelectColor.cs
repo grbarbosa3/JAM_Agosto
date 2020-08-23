@@ -17,9 +17,8 @@ public class PlayerSelectColor : MonoBehaviour
     private int aux = 0;
     private bool multiplayer;
     private bool lose = false;
+    private bool press;
     private int coresAdd = 0;
-    private int cor;
-    private Sprite sprite;
 
     private void Awake()
     {
@@ -31,20 +30,19 @@ public class PlayerSelectColor : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (Input.GetButtonDown("Jump"))
+        if (press)
         {
             if (can.GetPlayerN() == gm.whoPLay && jump.IsGrounded())
             {
-                cor = caughtColor.GetColor();
-                sprite = caughtColor.GetSprite();
-                if (cor>=0 && sprite != null)
+                if (caughtColor.GetColor()>= 0 && caughtColor.GetSprite() != null)
                 {
                     if(aux<listCores.Count)
                     {
-                        if(cor == listCores[aux])
+                        if(caughtColor.GetColor() == listCores[aux])
                         {
                             aux++;
                             score++;
+                            Debug.Log(aux);
                         }
                         else
                         {
@@ -53,18 +51,12 @@ public class PlayerSelectColor : MonoBehaviour
                     }
                     if(aux == listCores.Count)
                     {
-                        if (coresAdd < quantCoresAdd)
+                        if (coresAdd < quantCoresAdd && jump.IsGrounded())
                         {
-                            gm.AddCor(cor, sprite);
+                            gm.AddCor(caughtColor.GetColor(), caughtColor.GetSprite());
                             aux++;
                             coresAdd++;
-                        }
-                        if(coresAdd==quantCoresAdd)
-                        {
-                            aux = 0;
-                            coresAdd = 0;
-                            gm.whoPLay = nextPlayer;
-                            transform.position = posiInicial.position;
+                            Debug.Log(aux);
                         }
                     }
                 }
@@ -79,6 +71,17 @@ public class PlayerSelectColor : MonoBehaviour
                 Time.timeScale = 0f;
                 scorePanel.SetActive(true);
             }
+        }
+    }
+    private void Update()
+    {
+        press = Input.GetButtonDown("Jump");
+        if (coresAdd == quantCoresAdd && jump.IsGrounded())
+        {
+            aux = 0;
+            coresAdd = 0;
+            gm.whoPLay = nextPlayer;
+            transform.position = posiInicial.position;
         }
     }
 }
