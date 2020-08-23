@@ -9,7 +9,6 @@ public class PlayerSelectColor : MonoBehaviour
     [SerializeField] private int quantCoresAdd = 1;
     [SerializeField] private int nextPlayer = 0;
     [SerializeField] private GameObject scorePanel;
-    private int score = 0;
     private DetectedColor caughtColor;
     private CanWlak can;
     private PlayerJump jump;
@@ -40,7 +39,7 @@ public class PlayerSelectColor : MonoBehaviour
                         if(caughtColor.GetColor() == listCores[aux])
                         {
                             aux++;
-                            score++;
+                            gm.ScoreUp();
                             Debug.Log(aux);
                         }
                         else

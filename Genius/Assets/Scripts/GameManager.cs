@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public List<int> listaDecor = new List<int>();
     public List<Sprite> listaDeSpritesDasCores = new List<Sprite>();
     public int whoPLay = 0;
+    private int score = 0;
     [SerializeField] private bool multiplayer = false;
     private void Start()
     {
@@ -24,5 +25,9 @@ public class GameManager : MonoBehaviour
     public bool GetMultiplayer()
     {
         return multiplayer;
+    }
+    public void ScoreUp()
+    {
+        score++;
     }
 }
