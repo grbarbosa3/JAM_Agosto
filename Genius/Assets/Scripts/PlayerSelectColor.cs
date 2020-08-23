@@ -17,7 +17,6 @@ public class PlayerSelectColor : MonoBehaviour
     private int aux = 0;
     private bool multiplayer;
     private bool lose = false;
-    private bool press;
     private int coresAdd = 0;
 
     private void Awake()
@@ -28,9 +27,9 @@ public class PlayerSelectColor : MonoBehaviour
         jump = GetComponent<PlayerJump>();
         listCores = gm.listaDecor;
     }
-    private void FixedUpdate()
+    private void Update()
     {
-        if (press)
+        if (Input.GetButtonDown("Jump"))
         {
             if (can.GetPlayerN() == gm.whoPLay && jump.IsGrounded())
             {
@@ -49,9 +48,9 @@ public class PlayerSelectColor : MonoBehaviour
                             lose=true;
                         }
                     }
-                    if(aux == listCores.Count)
+                    else if(aux == listCores.Count && jump.IsGrounded())
                     {
-                        if (coresAdd < quantCoresAdd && jump.IsGrounded())
+                        if (coresAdd < quantCoresAdd)
                         {
                             gm.AddCor(caughtColor.GetColor(), caughtColor.GetSprite());
                             aux++;
@@ -62,6 +61,13 @@ public class PlayerSelectColor : MonoBehaviour
                 }
             }
         }
+        else if (coresAdd == quantCoresAdd && jump.IsGrounded())
+        {
+            aux = 0;
+            coresAdd = 0;
+            gm.whoPLay = nextPlayer;
+            transform.position = posiInicial.position;
+        }
         if (lose)
         {
             if (multiplayer)
@@ -71,17 +77,6 @@ public class PlayerSelectColor : MonoBehaviour
                 Time.timeScale = 0f;
                 scorePanel.SetActive(true);
             }
-        }
-    }
-    private void Update()
-    {
-        press = Input.GetButtonDown("Jump");
-        if (coresAdd == quantCoresAdd && jump.IsGrounded())
-        {
-            aux = 0;
-            coresAdd = 0;
-            gm.whoPLay = nextPlayer;
-            transform.position = posiInicial.position;
         }
     }
 }

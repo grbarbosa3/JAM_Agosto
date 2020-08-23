@@ -53,7 +53,7 @@ public class EnemyMoviment : MonoBehaviour
                     aux++;
                 }
             }
-            if (aux == listCores.Count && coresAdd < quantCoresAdd)
+            else if (aux == listCores.Count && coresAdd < quantCoresAdd)
             {
                 if (aux2!=aux)
                 {

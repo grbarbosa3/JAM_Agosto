@@ -8,8 +8,13 @@ public class CanWlak : MonoBehaviour
     [SerializeField] private int playerN = 1;
     [SerializeField] private GameManager gm;
     private bool can = false;
+    private Rigidbody2D rb;
 
     // Update is called once per frame
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
     void FixedUpdate()
     {
         if(gm.whoPLay == playerN)
@@ -19,6 +24,7 @@ public class CanWlak : MonoBehaviour
         else
         {
             can = false;
+            rb.velocity = Vector2.zero;
         }
     }
     public bool GetCan()
